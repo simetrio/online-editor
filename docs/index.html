@@ -45,19 +45,52 @@
             <h1 id="head">Загрузка...</h1>
 
             <div class="mb-3">
-                <label for="original-text" class="form-label">Оригинальный текст</label>
-                <textarea class="form-control" id="original-text" rows="4" onkeyup="OnChange();"></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="translated-text" class="form-label">Переведенный текст</label>
-                <textarea class="form-control" id="translated-text" rows="4" onkeyup="OnChange();"></textarea>
-            </div>
-
-            <div class="mb-3">
                 <label for="our-text" class="form-label">Мой текст</label>
                 <textarea class="form-control" id="our-text" rows="4" onkeyup="OnChange();"></textarea>
             </div>
+
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="original-text-tab" data-bs-toggle="tab"
+                        data-bs-target="#original-text-panel" type="button" role="tab"
+                        aria-controls="original-text-panel"
+                        aria-selected="true">
+                    Оригинальный текст
+                </button>
+
+                <button
+                        class="nav-link"
+                        id="translated-text-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#translated-text-panel"
+                        type="button"
+                        role="tab"
+                        aria-controls="translated-text-panel"
+                        aria-selected="false"
+                >
+                    Переведенный текст
+                </button>
+            </div>
+
+            <div class="tab-content" id="nav-tabContent">
+                <div
+                        class="tab-pane fade show active mb-3"
+                        id="original-text-panel"
+                        role="tabpanel"
+                        aria-labelledby="original-text-tab"
+                >
+                    <textarea class="form-control" id="original-text" rows="4" onkeyup="OnChange();"></textarea>
+                </div>
+
+                <div
+                        class="tab-pane fade mb-3"
+                        id="translated-text-panel"
+                        role="tabpanel"
+                        aria-labelledby="translated-text-tab"
+                >
+                    <textarea class="form-control" id="translated-text" rows="4" onkeyup="OnChange();"></textarea>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -112,13 +145,14 @@
     }
 
     let timeout = null;
+
     function OnChange() {
         window.clearTimeout(timeout);
         timeout = window.setTimeout(() => Save(), 500);
     }
 
     function Resize() {
-        const rows = parseInt(((window.innerHeight - 60) / 3 - 40) / 25);
+        const rows = parseInt(((window.innerHeight - 60 - 60) / 2 - 35) / 25);
 
         document.getElementById(id_originalText).rows = rows;
         document.getElementById(id_translatedText).rows = rows;
@@ -128,7 +162,7 @@
     Show(GetIndex());
     Resize();
 
-    addEventListener("resize", (event) => Resize());
+    addEventListener("resize", (_) => Resize());
 </script>
 
 <style>
